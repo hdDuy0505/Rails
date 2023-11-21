@@ -8,14 +8,20 @@ default: &default
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   timeout: 5000
-
+ 
 development:
   <<: *default
-  database: storage/development.sqlite3
+  adapter: postgresql
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %> # default value: 5
+  username: <%= ENV['PG_DB_USERNAME'] %>
+  password: <%= ENV['PG_DB_PASSWORD'] %>
+  # socket: /path/to/PG/socket # (optional, use only if needed)
+  host: <%= ENV['PG_DB_HOST'] %>
+  database:  <%= ENV['PG_DB_NAME'] %>
+  port: <%= ENV['PG_DB_PORT'] %>
 
 # Warning: The database defined as "test" will be erased and
-# re-generated from your development database when you run "rake".
-# Do not set this db to the same as development or production.
 test:
   <<: *default
   database: storage/test.sqlite3
