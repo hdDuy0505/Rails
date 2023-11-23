@@ -2,10 +2,11 @@
 class CreateBooks < ActiveRecord::Migration[7.1]
   def change
     create_table :books, id: :uuid, default: -> { "gen_random_uuid()" } do |t|
-      t.text :content, null: false
-      t.string :name, null: false
+      t.string :title, null: false
       t.string :author, null: false
-      t.time :publisher, null: false
+      t.text :description, null: false
+      t.float :price, null: false
+      t.time :published_date, null: false
 
       t.timestamps
     end

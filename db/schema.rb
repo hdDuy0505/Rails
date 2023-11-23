@@ -15,10 +15,11 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_23_030340) do
   enable_extension "plpgsql"
 
   create_table "books", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "content", null: false
-    t.string "name", null: false
+    t.string "title", null: false
     t.string "author", null: false
-    t.time "publisher", null: false
+    t.text "description", null: false
+    t.float "price", null: false
+    t.time "published_date", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
