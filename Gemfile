@@ -2,10 +2,9 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
-gem 'annotate'
-
 gem 'pg', '~> 1.5', '>= 1.5.4'
 
+gem "rubocop-discourse", require: false
 
 gem 'dotenv-rails', groups: [:development, :test]
 
@@ -54,6 +53,8 @@ gem "bootsnap", require: false
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri windows ]
+  gem 'annotate'
+  gem 'solargraph'
 end
 
 group :development do
