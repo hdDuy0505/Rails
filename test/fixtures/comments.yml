@@ -1,14 +1,13 @@
 # == Schema Information
 #
-# Table name: books
+# Table name: comments
 #
 #  id         :uuid             not null, primary key
-#  content    :text             not null
-#  name       :string           not null
-#  author     :string           not null
-#  publisher  :time             not null
+#  comment    :text             not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  book_id    :uuid             not null
+#  owner_id   :uuid             not null
 #
 
 # This model initially had no columns defined. If you add columns to the

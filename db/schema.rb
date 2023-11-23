@@ -10,17 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_11_21_030219) do
+ActiveRecord::Schema[7.1].define(version: 2023_11_23_030340) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "books", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
-    t.text "comment"
-    t.string "title"
+    t.text "content", null: false
+    t.string "name", null: false
+    t.string "author", null: false
+    t.time "publisher", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.uuid "author_id"
-    t.index ["author_id"], name: "index_books_on_author_id"
+  end
+
+  create_table "comments", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.text "comment", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.uuid "book_id", null: false
+    t.uuid "owner_id", null: false
+    t.index ["book_id"], name: "index_comments_on_book_id"
+    t.index ["owner_id"], name: "index_comments_on_owner_id"
   end
 
   create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
@@ -32,5 +42,6 @@ ActiveRecord::Schema[7.1].define(version: 2023_11_21_030219) do
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "books", "users", column: "author_id"
+  add_foreign_key "comments", "books"
+  add_foreign_key "comments", "users", column: "owner_id"
 end

@@ -3,12 +3,13 @@
 # Table name: books
 #
 #  id         :uuid             not null, primary key
-#  comment    :text
-#  title      :string
+#  content    :text             not null
+#  name       :string           not null
+#  author     :string           not null
+#  publisher  :time             not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  author_id  :uuid
 #
 class Book < ApplicationRecord
-    
+  validates :title, presence: true
 end
