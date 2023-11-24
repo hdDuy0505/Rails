@@ -5,6 +5,11 @@
 GET {{baseUrl}}/books
 Content-Type: application/json
 
+{
+    "per_page": 2,
+    "page": 1
+}
+
 ###
 # @name createBook
 POST {{baseUrl}}/books

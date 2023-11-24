@@ -15,12 +15,12 @@ class AuthsController < ApplicationController
 
   def register
     begin
-      user = User.find_by(email: params[:email])
-      if user
+      @user = User.find_by(email: params[:email])
+      if @user
         render json: { message: "Email has existed"  }, status: :bad_request
       end
     # Another method: Book.create(book_params)
-    #   if book.errors.any?
+    #   if @book.errors.any?
     #     raise ActiveModel::ValidationError.new(book)
     #   end
     # rescue ActiveModel::ValidationError => e
