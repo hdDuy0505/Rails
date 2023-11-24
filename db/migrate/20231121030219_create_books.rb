@@ -6,7 +6,7 @@ class CreateBooks < ActiveRecord::Migration[7.1]
       t.string :author, null: false
       t.text :description, null: false
       t.float :price, null: false
-      t.time :published_date, null: false
+      t.datetime :published_date, null: false
 
       t.timestamps
     end

@@ -2,18 +2,24 @@
 #
 # Table name: users
 #
-#  id         :uuid             not null, primary key
-#  name       :string
-#  age        :integer
-#  password   :string           not null
-#  email      :string           not null
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
+#  id           :uuid             not null, primary key
+#  name         :string
+#  age          :integer
+#  password     :string           not null
+#  email        :string           not null
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  access_token :string
 #
 class User < ApplicationRecord
+
+  has_secure_password # auto hash password
+
   # presence: true => NotEmpty
   # uniqueness: true => unique
   validates :name, presence: true, uniqueness: true
+
+  validates :access_token, presence: true
 
   validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 

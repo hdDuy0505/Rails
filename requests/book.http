@@ -1,0 +1,33 @@
+@baseUrl = http://localhost:5000
+
+###
+# @name getAllBooks
+GET {{baseUrl}}/books
+Content-Type: application/json
+
+###
+# @name createBook
+POST {{baseUrl}}/books
+Content-Type: application/json
+
+{
+    "title": "title",
+    "author": "author",
+    "published_date": "1954-07-29",
+    "description": "Description.",
+    "price": 14.99
+}
+
+###
+# @name updateBook
+PUT {{baseUrl}}/books/2565a15e-3973-4960-a607-73e1cdc762de
+Content-Type: application/json
+
+{
+    "title": "The Lord of the Rings 2"
+}
+
+###
+# @name getOneBook
+GET {{baseUrl}}/books/2565a15e-3973-4960-a607-73e1cdc762de
+Content-Type: application/json
