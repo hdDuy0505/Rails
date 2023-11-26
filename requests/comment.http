@@ -1,33 +1,14 @@
 @baseUrl = http://localhost:5000
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMzNTM4Zjk0LTEwODAtNDFmNy04ZDlhLTg0Yzc0YWFjMzQ1ZSIsIm5hbWUiOiJleGFtcGxlIiwiYWdlIjpudWxsLCJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJleHAiOjE3MDEwOTczMjd9.MhhzN4VjgrOUfDQGe8MNghKDCt0ALJHlLm363UkBTAo
 
 ###
-# @name getAllBooks
-GET {{baseUrl}}/books
-Content-Type: application/json
-
-###
-# @name createBook
-POST {{baseUrl}}/books
+# @name createComment
+POST {{baseUrl}}/comments
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
-    "title": "title",
-    "author": "author",
-    "published_date": "1954-07-29",
-    "description": "Description.",
-    "price": 14.99
+    "book_id": "2436c497-8d85-4cee-bf65-8a20f83a1fbe",
+    "comment": "This is a comment 4"
 }
 
-###
-# @name updateBook
-PUT {{baseUrl}}/books/2565a15e-3973-4960-a607-73e1cdc762de
-Content-Type: application/json
-
-{
-    "title": "The Lord of the Rings 2"
-}
-
-###
-# @name getOneBook
-GET {{baseUrl}}/books/2565a15e-3973-4960-a607-73e1cdc762de
-Content-Type: application/json

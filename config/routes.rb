@@ -10,6 +10,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :comments, only: [:create, :update]
+
   post '/auths/login', to: 'auths#login'
   post '/auths/register', to: 'auths#register'
 end

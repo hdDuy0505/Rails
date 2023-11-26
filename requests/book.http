@@ -15,6 +15,7 @@ Content-Type: application/json
 ###
 # @name createBook
 POST {{baseUrl}}/books
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -28,6 +29,7 @@ Content-Type: application/json
 ###
 # @name updateBook
 PUT {{baseUrl}}/books/2565a15e-3973-4960-a607-73e1cdc762de
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
@@ -37,11 +39,13 @@ Content-Type: application/json
 ###
 # @name getOneBook
 GET {{baseUrl}}/books/2565a15e-3973-4960-a607-73e1cdc762de
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 ###
 # @name updateBookAndComment
 PUT {{baseUrl}}/books/update-book-comment
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {
