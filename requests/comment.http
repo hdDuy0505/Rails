@@ -5,11 +5,6 @@
 GET {{baseUrl}}/books
 Content-Type: application/json
 
-{
-    "per_page": 2,
-    "page": 1
-}
-
 ###
 # @name createBook
 POST {{baseUrl}}/books
@@ -36,15 +31,3 @@ Content-Type: application/json
 # @name getOneBook
 GET {{baseUrl}}/books/2565a15e-3973-4960-a607-73e1cdc762de
 Content-Type: application/json
-
-###
-# @name updateBookAndComment
-PUT {{baseUrl}}/books/update-book-comment
-Content-Type: application/json
-
-{
-    "book_id": "2565a15e-3973-4960-a607-73e1cdc762de",
-    "comment_id": "397afffb-70af-4e43-80c9-d6d49a4d9e02",
-    "title": "The Lord of the Rings 3",
-    "comment": "Sách nhìn đẹp quá"
-}

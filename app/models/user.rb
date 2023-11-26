@@ -25,5 +25,5 @@ class User < ApplicationRecord
 
   validates :password, presence: true, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/, message: "Password must contain at least 6 characters, include: uppercase, lowercase, number and special case character" } # \A mean: ^
 
-  has_many :comments, dependent: :destroy
+  has_many :comments, class_name: 'Comment', dependent: :destroy
 end

@@ -5,10 +5,13 @@ class BooksController < ApplicationController
 
   def index
     begin
-      per_page = params[:per_page] || 5
-      page = params[:page] || 1
+      books_params = get_books_params
+      per_page = books_params[:per_page] || 5
+      page = books_params[:page] || 1
       @books = Book.limit(per_page.to_i).offset((page - 1).to_i * per_page)
-      render json: { books: @books, total: Book.count, per_page: per_page, page: page }
+
+      serialized_books = ActiveModelSerializers::SerializableResource.new(@books, each_serializer: BookListSerializer)
+      render json: { books: serialized_books, total: Book.count, per_page: per_page, page: page }
     rescue => e
       p "Error get all book: " + e.message
       render json: { error: e.message }, status: :internal_server_error
@@ -36,10 +39,13 @@ class BooksController < ApplicationController
   def update
     begin
       @book = Book.find(params[:id])
-      result = @book.update(book_params)
+      result = @book.update!(book_params)
       if result
         render json: { success: true }, status: :ok
       end
+
+    rescue ActiveRecord::RecordNotFound
+      render json: { error: e.message }, status: :bad_request
     rescue ActiveRecord::RecordInvalid => e #  Error: Validation failed
       render json: { error: e.message }, status: :bad_request # or status: :unprocessable_entity
     rescue => e
@@ -50,10 +56,38 @@ class BooksController < ApplicationController
 
   def show
     begin
-      @book = Book.find(params[:id])
-      render json: @book
+      book = Book.includes({ comments: [:owner] }).find(params[:id]) # rails hasn't find!
+      render json: book # default: render json: book, serializer: BookSerializer, status: :ok
+
+    # default: render json: comment, serializer: CommentSerializer, status: :ok
+    # tự map tới CommentSerializer
+    # comment = Comment.includes(:owner).find_by(id: params[:id])
+    # Or: comment = Comment.where(id: params[:id]).includes(:owner)
+    # render json: comment
+
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { error: e.message }, status: :bad_request
     rescue => e
       p "Error get one book: " + e.message
+      render json: { error: e.message }, status: :internal_server_error
+    end
+  end
+
+  def update_book_comment
+    begin
+      book = Book.find(update_book_comment_params[:book_id])
+      comment = Comment.find(update_book_comment_params[:comment_id])
+
+      ActiveRecord::Base.transaction do
+        book.update!(update_book_comment_params.except(:comment, :comment_id, :book_id))
+        comment.update!(update_book_comment_params.slice(:comment))
+      end
+
+      render json: { success: true }, status: :ok
+    rescue ActiveRecord::RecordNotFound => e
+      render json: { error: e.message }, status: :bad_request
+    rescue => e
+      p "Error update book comment: " + e.message
       render json: { error: e.message }, status: :internal_server_error
     end
   end
@@ -66,4 +100,7 @@ class BooksController < ApplicationController
     params.permit(:per_page, :page) # ?per_page=10&page=1 => get from params
   end
 
+  def update_book_comment_params
+    params.permit(:book_id, :comment_id, :title, :author, :price, :published_date, :description, :comment)
+  end
 end

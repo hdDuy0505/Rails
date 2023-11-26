@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+gem 'active_model_serializers'
+
 gem 'jwt'
 
 gem 'pg', '~> 1.5', '>= 1.5.4'
