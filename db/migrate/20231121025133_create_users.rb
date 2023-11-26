@@ -3,7 +3,7 @@ class CreateUsers < ActiveRecord::Migration[7.1]
     create_table :users, id: :uuid, default: -> { "gen_random_uuid()" }  do |t|
       t.string :name
       t.integer :age
-      t.string :password, null: false
+      t.string :password_digest, null: false
       t.string :email, null: false
 
       t.timestamps

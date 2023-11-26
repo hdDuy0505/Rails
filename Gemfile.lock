@@ -262,6 +262,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    simple_command (1.0.1)
     solargraph (0.49.0)
       backport (~> 1.2)
       benchmark
@@ -335,6 +336,7 @@ DEPENDENCIES
   rails (~> 7.1.2)
   rubocop-discourse
   selenium-webdriver
+  simple_command
   solargraph
   sprockets-rails
   sqlite3 (~> 1.4)

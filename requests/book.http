@@ -1,8 +1,10 @@
 @baseUrl = http://localhost:5000
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMzNTM4Zjk0LTEwODAtNDFmNy04ZDlhLTg0Yzc0YWFjMzQ1ZSIsIm5hbWUiOiJleGFtcGxlIiwiYWdlIjpudWxsLCJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJleHAiOjE3MDEwOTE3NDN9.tfLmiPECaFEepEvIq2H4N_ZtquyV19auqbtCEQJL6B8
 
 ###
 # @name getAllBooks
 GET {{baseUrl}}/books
+Authorization: Bearer {{token}}
 Content-Type: application/json
 
 {

@@ -1,30 +1,32 @@
 # frozen_string_literal: true
-
 class AuthsController < ApplicationController
-  protect_from_forgery with: :null_session
+  skip_before_action :authenticate_request
 
-  def index
+  def login
     begin
-      @books = Book.all
-      render json: @books
+      command = AuthenticateUser.call(login_params[:email], login_params[:password])
+      render json: { access_token: command.result[:access_token], **command.result[:user] }
+
+    rescue ActiveRecord::RecordInvalid => e #  Error: Validation failed
+      render json: { error: e.message }, status: :authenticate
     rescue => e
-      p "Error get all book: " + e.message
+      p "Error register user: " + e.message
       render json: { error: e.message }, status: :internal_server_error
     end
   end
 
   def register
     begin
-      @user = User.find_by(email: params[:email])
-      if @user
-        render json: { message: "Email has existed"  }, status: :bad_request
+      user = User.find_by_email(register_params[:email])
+      if user.nil?
+        user = User.create!(register_params)
+        access_token = JsonWebToken.encode(user.attributes.except("password_digest", "created_at", "updated_at"))
+        render json: { access_token: access_token,
+                       **user.attributes.except("password_digest", "created_at", "updated_at") }, status: :ok
+      else
+        render json: { error: "Email already exists" }, status: :bad_request
       end
-    # Another method: Book.create(book_params)
-    #   if @book.errors.any?
-    #     raise ActiveModel::ValidationError.new(book)
-    #   end
-    # rescue ActiveModel::ValidationError => e
-    #   render json: { error: e.message }, status: :unprocessable_entity
+
     rescue ActiveRecord::RecordInvalid => e #  Error: Validation failed
       render json: { error: e.message }, status: :bad_request
     rescue => e
@@ -33,38 +35,12 @@ class AuthsController < ApplicationController
     end
   end
 
-  def update
-    begin
-      book = Book.find(params[:id])
-      result = book.update(book_params)
-      if result
-        render json: { success: true }, status: :ok
-      end
-    rescue ActiveRecord::RecordInvalid => e #  Error: Validation failed
-      render json: { error: e.message }, status: :bad_request # or status: :unprocessable_entity
-    rescue => e
-      p "Error create book: " + e.message
-      render json: { error: e.message }, status: :internal_server_error
-    end
-  end
-
-  def show
-    begin
-      @book = Book.find(params[:id])
-      render json: @books
-    rescue => e
-      p "Error get one book: " + e.message
-      render json: { error: e.message }, status: :internal_server_error
-    end
-  end
-
   private
   def login_params
-    params.require(:email, :password)
+    params.require(:auth).permit(:email, :password)
   end
 
   def register_params
     params.permit(:name, :email, :password, :password_confirmation)
   end
-
 end

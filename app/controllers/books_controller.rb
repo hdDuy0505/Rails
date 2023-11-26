@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class BooksController < ApplicationController
-  protect_from_forgery with: :null_session
-
   def index
     begin
+      p "booooooooooooooooooooooooooooooooooooooooooooob"
       books_params = get_books_params
       per_page = books_params[:per_page] || 5
       page = books_params[:page] || 1
@@ -44,7 +43,7 @@ class BooksController < ApplicationController
         render json: { success: true }, status: :ok
       end
 
-    rescue ActiveRecord::RecordNotFound
+    rescue ActiveRecord::RecordNotFound => e
       render json: { error: e.message }, status: :bad_request
     rescue ActiveRecord::RecordInvalid => e #  Error: Validation failed
       render json: { error: e.message }, status: :bad_request # or status: :unprocessable_entity
@@ -92,15 +91,15 @@ class BooksController < ApplicationController
     end
   end
 
-  def book_params
+  private def book_params
     params.permit(:title, :author, :price, :published_date, :description) # body => get from params
   end
 
-  def get_books_params
+  private def get_books_params
     params.permit(:per_page, :page) # ?per_page=10&page=1 => get from params
   end
 
-  def update_book_comment_params
+  private def update_book_comment_params
     params.permit(:book_id, :comment_id, :title, :author, :price, :published_date, :description, :comment)
   end
 end

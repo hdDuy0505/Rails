@@ -6,6 +6,8 @@ gem 'active_model_serializers'
 
 gem 'jwt'
 
+gem 'simple_command'
+
 gem 'pg', '~> 1.5', '>= 1.5.4'
 
 gem "rubocop-discourse", require: false
