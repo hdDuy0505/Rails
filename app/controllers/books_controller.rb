@@ -3,7 +3,6 @@
 class BooksController < ApplicationController
   def index
     begin
-      p "booooooooooooooooooooooooooooooooooooooooooooob"
       books_params = get_books_params
       per_page = books_params[:per_page] || 5
       page = books_params[:page] || 1

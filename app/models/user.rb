@@ -16,11 +16,11 @@ class User < ApplicationRecord
 
   # presence: true => NotEmpty
   # uniqueness: true => unique
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
 
-  validates :email, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  validates :password_digest, presence: true, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/, message: "Password must contain at least 6 characters, include: uppercase, lowercase, number and special case character" } # \A mean: ^
+  validates :password, presence: true, format: { with: /\A(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{6,})/, message: "Password must contain at least 6 characters, include: uppercase, lowercase, number and special case character" } # \A mean: ^
 
   has_many :comments, class_name: 'Comment', dependent: :destroy
 end
