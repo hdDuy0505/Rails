@@ -1,5 +1,5 @@
 @baseUrl = http://localhost:5000
-@token = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMzNTM4Zjk0LTEwODAtNDFmNy04ZDlhLTg0Yzc0YWFjMzQ1ZSIsIm5hbWUiOiJleGFtcGxlIiwiYWdlIjpudWxsLCJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJleHAiOjE3MDEwOTczMjd9.MhhzN4VjgrOUfDQGe8MNghKDCt0ALJHlLm363UkBTAo
+@token = eyJhbGciOiJIUzI1NiJ9.eyJpZCI6ImMzNTM4Zjk0LTEwODAtNDFmNy04ZDlhLTg0Yzc0YWFjMzQ1ZSIsIm5hbWUiOiJleGFtcGxlIiwiYWdlIjpudWxsLCJlbWFpbCI6ImV4YW1wbGVAbWFpbC5jb20iLCJleHAiOjE3MDExNTYxNzN9.bxR0V3B6_Lkztmoi_79fk7YvoUoUiJjmrl5F-9EUeW0
 
 ###
 # @name getAllBooks
@@ -51,6 +51,6 @@ Content-Type: application/json
 {
     "book_id": "2565a15e-3973-4960-a607-73e1cdc762de",
     "comment_id": "397afffb-70af-4e43-80c9-d6d49a4d9e02",
-    "title": "The Lord of the Rings 3",
-    "comment": "Sách nhìn đẹp quá"
+    "title": "The Lord of the Rings 4",
+    "comment": "Sách nhìn đẹp quá nhỉ"
 }

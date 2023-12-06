@@ -4,8 +4,11 @@ class AuthsController < ApplicationController
 
   def login
     begin
-      command = AuthenticateUser.call(login_params[:email], login_params[:password])
-      render json: { access_token: command.result[:access_token], **command.result[:user] }
+    #   command = AuthenticateUser.new(login_params[:email], login_params[:password]).call
+    #   render json: { **command.result[:user], access_token: command.result[:access_token] }
+
+    command = AuthenticateUser.new(login_params[:email], login_params[:password]).call
+    render json: { **command[:user], access_token: command[:access_token] }
 
     rescue ActiveRecord::RecordInvalid => e #  Error: Validation failed
       render json: { error: e.message }, status: :authenticate

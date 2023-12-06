@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class AuthenticateUser
-  prepend SimpleCommand
+  # prepend SimpleCommand
 
   def initialize(email, password)
     @email = email
@@ -8,16 +8,15 @@ class AuthenticateUser
   end
 
   def call
-    result = nil
     if user
       profile = user.attributes.except("password_digest", "created_at", "updated_at")
       access_token = JsonWebToken.encode(profile)
-      result = {
-          access_token: access_token,
-          user: profile
+      profile.except!(:exp)
+      {
+        user: profile,
+        access_token: access_token
       }
     end
-    result
   end
 
   private

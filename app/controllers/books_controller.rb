@@ -9,6 +9,7 @@ class BooksController < ApplicationController
       @books = Book.limit(per_page.to_i).offset((page - 1).to_i * per_page)
 
       serialized_books = ActiveModelSerializers::SerializableResource.new(@books, each_serializer: BookListSerializer)
+      #ActiveModel::ArraySerializer.new(@event_query, each_serializer: EventListSerializer)
       render json: { books: serialized_books, total: Book.count, per_page: per_page, page: page }
     rescue => e
       p "Error get all book: " + e.message

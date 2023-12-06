@@ -10,7 +10,7 @@ class ApplicationController < ActionController::API
   end
 
   private def set_session
-    session[:current_user] = @current_user
+    session[:current_user] = @current_user if @current_user
   end
 
 end
